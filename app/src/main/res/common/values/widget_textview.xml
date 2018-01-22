@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- story title -->
+    <style name="TextView_Story_Title" parent="android:Widget.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- comment author -->
+    <style name="TextView_Comment_Author" parent="android:Widget.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- comment content -->
+    <style name="TextView_Comment_Content" parent="android:Widget.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

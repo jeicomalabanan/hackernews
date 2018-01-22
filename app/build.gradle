@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion toolVersions.android.compileSdk
+
+    defaultConfig {
+        applicationId config.app.appId
+        minSdkVersion config.app.minSdk
+        targetSdkVersion config.app.targetSdk
+        versionCode config.app.versionCode
+        versionName config.app.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        //  NOTE: Tell Room to export the schema into a folder
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    buildTypes {
+        dev {
+            // NOTE: development environment
+            initWith(debug)
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-DEV'
+
+            buildConfigField("String", "ORIGIN", '"https://hacker-news.firebaseio.com"')
+            buildConfigField("String", "BASE_URL", '"https://hacker-news.firebaseio.com/v0/"')
+        }
+        qa {
+            // NOTE: qa environment
+            initWith(debug)
+            applicationIdSuffix '.qa'
+            versionNameSuffix '-QA'
+        }
+        staging {
+            // NOTE: staging environment
+            initWith(debug)
+            applicationIdSuffix '.staging'
+            versionNameSuffix '-STAGING'
+        }
+        release {
+            // NOTE: production environment
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    variantFilter { variant ->
+        if (variant.buildType.name == "debug") {
+            variant.ignore = true
+        }
+    }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res/app', 'src/main/res/common']
+            file('src/main/res/ui')
+                    .listFiles()
+                    .each { res.srcDirs += it.path }
+        }
+        release {
+            res.srcDirs = ['src/release/res/app', 'src/release/res/common']
+            file('src/release/res/ui')
+                    .listFiles()
+                    .each { res.srcDirs += it.path }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleDependency
+    implementation "com.android.support:appcompat-v7:$libVersions.supportLibrary"
+    implementation "com.android.support:design:$libVersions.supportLibrary"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.0.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+
+    // ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:reactivestreams:1.0.0"
+
+    // dagger2
+    implementation "com.google.dagger:dagger:$libVersions.dagger2"
+    annotationProcessor "com.google.dagger:dagger-compiler:$libVersions.dagger2"
+    // dagger2 android
+    implementation "com.google.dagger:dagger-android:$libVersions.dagger2"
+    implementation "com.google.dagger:dagger-android-support:$libVersions.dagger2"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$libVersions.dagger2"
+
+    // rxJava2
+    implementation "io.reactivex.rxjava2:rxjava:$libVersions.rxJava2"
+    implementation "io.reactivex.rxjava2:rxandroid:$libVersions.rxAndroid2"
+
+    // retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$libVersions.retrofit2"
+    implementation "com.squareup.retrofit2:retrofit-mock:$libVersions.retrofit2"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$libVersions.retrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$libVersions.retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$libVersions.okhttp3"
+
+    // utils
+    implementation "com.facebook.stetho:stetho:$libVersions.stetho"
+    implementation "com.jakewharton.timber:timber:$libVersions.timber"
+}

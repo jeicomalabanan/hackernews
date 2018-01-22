@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="com.propertyguru.hackernews.data.model.Comment" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal">
+
+            <!-- author -->
+            <TextView
+                android:id="@+id/tv_author"
+                style="@style/TextView_Comment_Author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin"
+                android:text="@{comment.by}" />
+
+            <!-- date -->
+            <TextView
+                style="@style/TextView_Comment_Author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:pretty_date="@{comment.time}" />
+        </LinearLayout>
+
+        <!-- comment -->
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/TextView_Comment_Content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin"
+            app:html="@{comment.text}" />
+
+        <!-- replies container -->
+        <LinearLayout
+            android:id="@+id/ll_replies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hacker News</string>
+    <string name="activity_comment_list">Comments</string>
+</resources>

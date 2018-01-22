@@ -1,0 +1,13 @@
+ext {
+    libVersions = [
+            supportLibrary: '27.0.2',
+            archComponents: '1.0.0',
+            dagger2       : '2.14',
+            rxJava2       : '2.1.6',
+            rxAndroid2    : '2.0.1',
+            retrofit2     : '2.3.0',
+            okhttp3       : '3.9.0',
+            stetho        : '1.5.0',
+            timber        : '4.5.1'
+    ]
+}

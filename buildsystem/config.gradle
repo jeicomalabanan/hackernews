@@ -1,0 +1,19 @@
+ext {
+    toolVersions = [
+            gradlePlugin: '3.0.1',
+            android     : [
+                    compileSdk: 26,
+                    buildTools: '26.0.2'
+            ]
+    ]
+
+    config = [
+            app: [
+                    applicationId: 'com.propertyguru.hackernews',
+                    minSdk       : 19,
+                    targetSdk    : 26,
+                    versionCode  : 1,
+                    versionName  : '1.0.0'
+            ]
+    ]
+}

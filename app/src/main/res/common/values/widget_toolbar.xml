@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- android:theme -->
+    <style name="Toolbar.Theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <!-- android:theme -->
+    <style name="Toolbar.Theme.Transparent" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- app:popupTheme -->
+    <style name="Toolbar.PopUpTheme" parent="@style/ThemeOverlay.AppCompat.Light" />
+
+    <!-- app:popupTheme -->
+    <style name="Toolbar.PopUpTheme.Transparent" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- style: normal -->
+    <style name="Toolbar_Normal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/Toolbar.Theme</item>
+        <item name="popupTheme">@style/Toolbar.PopUpTheme</item>
+    </style>
+
+    <!-- style: transparent -->
+    <style name="Toolbar_Transparent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:theme">@style/Toolbar.Theme.Transparent</item>
+        <item name="popupTheme">@style/Toolbar.PopUpTheme.Transparent</item>
+    </style>
+</resources>

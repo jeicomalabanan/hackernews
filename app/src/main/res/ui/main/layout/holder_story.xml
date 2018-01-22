@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="story"
+            type="com.propertyguru.hackernews.data.model.Story" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="callback"
+            type="com.propertyguru.hackernews.ui.main.StoryAdapter.Callback" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding">
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text"
+            app:number="@{position}" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@{story.title}"
+                android:textColor="@color/primary_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:textColor="@color/secondary_text"
+                    app:story_sub="@{story}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> callback.onViewComments(story)}"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="14sp"
+                    app:total_comments="@{story}" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
