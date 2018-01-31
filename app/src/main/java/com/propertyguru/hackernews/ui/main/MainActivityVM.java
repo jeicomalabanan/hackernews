@@ -2,9 +2,9 @@ package com.propertyguru.hackernews.ui.main;
 
 import android.support.annotation.NonNull;
 
-import com.propertyguru.hackernews.base.BaseActivityVM;
+import com.propertyguru.hackernews.common.BaseActivityVM;
 import com.propertyguru.hackernews.data.model.Story;
-import com.propertyguru.hackernews.data.repository.Repository;
+import com.propertyguru.hackernews.data.repository.HackerNewsRepository;
 import com.propertyguru.hackernews.util.ApiCallback;
 
 import org.reactivestreams.Publisher;
@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -23,13 +24,17 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivityVM extends BaseActivityVM {
-    private final Repository repository;
+    private final HackerNewsRepository repository;
     private List<Long> storyIdList = Collections.emptyList();
     private int currentIndex = 0;
+    private Scheduler io;
+    private Scheduler scheduler;
 
     @Inject
-    public MainActivityVM(Repository repository) {
+    public MainActivityVM(HackerNewsRepository repository) {
         this.repository = repository;
+        io = Schedulers.io();
+        scheduler = AndroidSchedulers.mainThread();
     }
 
     public void getTopStories(@NonNull final ApiCallback<List<Story>> callback) {
@@ -55,8 +60,8 @@ public class MainActivityVM extends BaseActivityVM {
                     }
                 })
                 .toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(io)
+                .observeOn(scheduler)
                 .subscribe(new SingleObserver<List<Story>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -70,6 +75,7 @@ public class MainActivityVM extends BaseActivityVM {
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         callback.onError("Error");
                     }
                 });

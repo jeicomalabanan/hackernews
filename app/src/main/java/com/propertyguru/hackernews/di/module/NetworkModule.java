@@ -12,11 +12,11 @@ import com.propertyguru.hackernews.util.DateDeserializer;
 import java.io.File;
 import java.util.Date;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.support.DaggerApplication;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
@@ -32,16 +32,19 @@ import timber.log.Timber;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
+/**
+ * Module that contain network configurations
+ */
 @Module
 public class NetworkModule {
     @Singleton
     @Provides
-    static Cache cache(DaggerApplication daggerApplication) {
+    static Cache cache(@Named("http-cache") File file) {
         Cache cache = null;
 
         try {
             int cacheSize = 10 * 1024 * 1024; // 10mb cache
-            cache = new Cache(new File(daggerApplication.getCacheDir(), "http-cache"), cacheSize);
+            cache = new Cache(file, cacheSize);
         } catch (Exception e) {
             Timber.e(e, "Could not create Cache!");
         }

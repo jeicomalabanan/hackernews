@@ -2,12 +2,12 @@ package com.propertyguru.hackernews.data.repository;
 
 import android.support.annotation.NonNull;
 
+import com.propertyguru.hackernews.data.constant.App;
+import com.propertyguru.hackernews.data.constant.ItemType;
 import com.propertyguru.hackernews.data.model.Comment;
 import com.propertyguru.hackernews.data.model.Item;
 import com.propertyguru.hackernews.data.model.Story;
-import com.propertyguru.hackernews.data.constant.App;
-import com.propertyguru.hackernews.data.constant.ItemType;
-import com.propertyguru.hackernews.data.remote.api.HackerApi;
+import com.propertyguru.hackernews.data.remote.api.HackerNewsApi;
 
 import org.reactivestreams.Publisher;
 
@@ -19,10 +19,10 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 
-public class RepositoryImpl implements Repository {
-    private final HackerApi hackerApi;
+public class HackerNewsRepositoryImpl implements HackerNewsRepository {
+    private final HackerNewsApi hackerApi;
 
-    public RepositoryImpl(HackerApi hackerApi) {
+    public HackerNewsRepositoryImpl(HackerNewsApi hackerApi) {
         this.hackerApi = hackerApi;
     }
 
@@ -34,6 +34,12 @@ public class RepositoryImpl implements Repository {
     @Override
     public Flowable<Story> getStory(long storyId) {
         return hackerApi.getItem(storyId)
+                .filter(new Predicate<Item>() {
+                    @Override
+                    public boolean test(Item item) throws Exception {
+                        return ItemType.STORY.equalsIgnoreCase(item.type);
+                    }
+                })
                 .map(new Function<Item, Story>() {
                     @Override
                     public Story apply(Item item) throws Exception {

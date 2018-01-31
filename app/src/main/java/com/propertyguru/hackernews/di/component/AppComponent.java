@@ -28,7 +28,7 @@ import dagger.android.support.DaggerApplication;
         SourceModule.class,
         ViewModelModule.class
 })
-interface AppComponent extends AndroidInjector<DaggerApplication> {
+public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
     @Component.Builder
     abstract class Builder extends AndroidInjector.Builder<DaggerApplication> {}

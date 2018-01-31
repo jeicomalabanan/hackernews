@@ -1,0 +1,9 @@
+{
+  "by": "Santosh83",
+  "id": 16260344,
+  "kids": [],
+  "parent": 16260193,
+  "text": "This is in the hands of the firmware&#x2F;hardware manufacturers. AFAIK, for instance, the version of Minix that serves as Intel&#x27;s ME will continue to be operational even if the UEFI is replaced by Linux.<p>The issue is that &#x27;firmware&#x27; actually means many different blobs of software in various ROMs spread throughout the system, from disk controllers to GPUs to memory controllers to NIC and so on.<p>You will never be able to verify you have full control over your system unless all these firmware have the ability to be reflashed&#x2F;replaced. LinuxBoot&#x2F;Coreboot are a step in the direction, but without major concessions from hardware vendors this is an uphill battle.",
+  "time": 1517257416,
+  "type": "comment"
+}

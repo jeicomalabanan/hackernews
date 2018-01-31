@@ -2,7 +2,7 @@ ext {
     libVersions = [
             supportLibrary: '27.0.2',
             archComponents: '1.0.0',
-            dagger2       : '2.14',
+            dagger2       : '2.14.1',
             rxJava2       : '2.1.6',
             rxAndroid2    : '2.0.1',
             retrofit2     : '2.3.0',

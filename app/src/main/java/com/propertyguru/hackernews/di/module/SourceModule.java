@@ -11,6 +11,10 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.android.support.DaggerApplication;
 
+/**
+ * Module that contain data sources
+ * i.e. shared preference, database
+ */
 @Module
 public class SourceModule {
     @Singleton

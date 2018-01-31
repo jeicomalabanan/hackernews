@@ -11,13 +11,6 @@ android {
         versionName config.app.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
-        //  NOTE: Tell Room to export the schema into a folder
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
     }
     dataBinding {
         enabled = true
@@ -46,6 +39,8 @@ android {
         }
         release {
             // NOTE: production environment
+            buildConfigField("String", "ORIGIN", '"https://hacker-news.firebaseio.com"')
+            buildConfigField("String", "BASE_URL", '"https://hacker-news.firebaseio.com/v0/"')
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -82,11 +77,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.0.0"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
     // ReactiveStreams support for LiveData
-    implementation "android.arch.lifecycle:reactivestreams:1.0.0"
+    implementation "android.arch.lifecycle:reactivestreams:1.1.0"
 
     // dagger2
     implementation "com.google.dagger:dagger:$libVersions.dagger2"
@@ -102,7 +97,7 @@ dependencies {
 
     // retrofit2
     implementation "com.squareup.retrofit2:retrofit:$libVersions.retrofit2"
-    implementation "com.squareup.retrofit2:retrofit-mock:$libVersions.retrofit2"
+//    implementation "com.squareup.retrofit2:retrofit-mock:$libVersions.retrofit2"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$libVersions.retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$libVersions.retrofit2"
     implementation "com.squareup.okhttp3:logging-interceptor:$libVersions.okhttp3"
@@ -110,4 +105,8 @@ dependencies {
     // utils
     implementation "com.facebook.stetho:stetho:$libVersions.stetho"
     implementation "com.jakewharton.timber:timber:$libVersions.timber"
+
+    // others
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.9.1"
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:$libVersions.dagger2"
 }

@@ -1,19 +1,22 @@
 package com.propertyguru.hackernews.di.module;
 
-import com.propertyguru.hackernews.data.remote.api.HackerApi;
-import com.propertyguru.hackernews.data.repository.Repository;
-import com.propertyguru.hackernews.data.repository.RepositoryImpl;
+import com.propertyguru.hackernews.data.remote.api.HackerNewsApi;
+import com.propertyguru.hackernews.data.repository.HackerNewsRepository;
+import com.propertyguru.hackernews.data.repository.HackerNewsRepositoryImpl;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that contain repositories
+ */
 @Module
 public class DataModule {
     @Singleton
     @Provides
-    static Repository repository(HackerApi hackerApi) {
-        return new RepositoryImpl(hackerApi);
+    static HackerNewsRepository hackerNewsRepository(HackerNewsApi hackerNewsApi) {
+        return new HackerNewsRepositoryImpl(hackerNewsApi);
     }
 }

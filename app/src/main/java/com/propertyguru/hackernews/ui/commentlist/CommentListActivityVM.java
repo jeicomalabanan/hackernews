@@ -1,10 +1,10 @@
 package com.propertyguru.hackernews.ui.commentlist;
 
-import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 
+import com.propertyguru.hackernews.common.BaseActivityVM;
 import com.propertyguru.hackernews.data.model.Comment;
-import com.propertyguru.hackernews.data.repository.Repository;
+import com.propertyguru.hackernews.data.repository.HackerNewsRepository;
 import com.propertyguru.hackernews.util.ApiCallback;
 
 import javax.inject.Inject;
@@ -12,13 +12,12 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
-public class CommentListActivityVM extends ViewModel {
-    private final Repository repository;
+public class CommentListActivityVM extends BaseActivityVM {
+    private final HackerNewsRepository repository;
 
     @Inject
-    public CommentListActivityVM(Repository repository) {
+    public CommentListActivityVM(HackerNewsRepository repository) {
         this.repository = repository;
     }
 

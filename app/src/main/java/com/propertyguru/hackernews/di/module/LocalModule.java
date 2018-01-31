@@ -10,6 +10,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that contains data access objects for local sources
+ * i.e. shared pref helper, database dao
+ */
 @Module
 public class LocalModule {
     @Singleton

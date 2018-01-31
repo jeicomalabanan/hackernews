@@ -1,8 +1,6 @@
 package com.propertyguru.hackernews.ui.main;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.propertyguru.hackernews.R;
-import com.propertyguru.hackernews.base.BaseActivity;
+import com.propertyguru.hackernews.common.BaseActivity;
 import com.propertyguru.hackernews.data.model.Story;
 import com.propertyguru.hackernews.databinding.ActivityMainBinding;
 import com.propertyguru.hackernews.ui.commentlist.CommentListActivity;
@@ -20,21 +18,16 @@ import com.propertyguru.hackernews.util.ApiCallback;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
-    private MainActivityVM viewModel;
-    private ActivityMainBinding binding;
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivityVM> {
+    @Override
+    protected BindingData<MainActivityVM> getBindingData() {
+        return new BindingData<>(R.layout.activity_main, MainActivityVM.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainActivityVM.class);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setVm(viewModel);
-
-        setSupportActionBar(binding.toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-        }
+        setUpToolbar(binding.toolbar);
 
         RecyclerView recyclerView = binding.rvStoryList;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,6 +52,11 @@ public class MainActivity extends BaseActivity {
         if (storyAdapter.getItemCount() == 0) {
             requestTopStories();
         }
+    }
+
+    @Override
+    protected void subscribeToEvents(MainActivityVM viewModel) {
+
     }
 
     private void requestTopStories() {

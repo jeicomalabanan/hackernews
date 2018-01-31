@@ -1,34 +1,23 @@
 package com.propertyguru.hackernews.di.module;
 
-import android.content.Context;
-
 import com.propertyguru.hackernews.BuildConfig;
 import com.propertyguru.hackernews.di.qualifier.ApiDateFormat;
 import com.propertyguru.hackernews.di.qualifier.ApiEndpoint;
-import com.propertyguru.hackernews.di.qualifier.AppContext;
 import com.propertyguru.hackernews.di.qualifier.AppId;
 import com.propertyguru.hackernews.di.qualifier.IsDebugMode;
 
 import java.io.File;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import dagger.android.support.DaggerApplication;
 import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockWebServer;
 
-/**
- * Module that contains app related data
- */
 @Module
-public class AppModule {
-    @AppContext
-    @Provides
-    static Context context(DaggerApplication daggerApplication) {
-        return daggerApplication;
-    }
-
+public class TestAppModule {
     @AppId
     @Provides
     static String appId() {
@@ -43,8 +32,8 @@ public class AppModule {
 
     @ApiEndpoint
     @Provides
-    static HttpUrl apiEndpoint() {
-        return HttpUrl.parse(BuildConfig.BASE_URL);
+    static HttpUrl apiEndpoint(MockWebServer mockWebServer) {
+        return mockWebServer.url("/");
     }
 
     @ApiDateFormat
@@ -53,9 +42,15 @@ public class AppModule {
         return "yyyy-MM-dd HH:mm:ss";
     }
 
+    @Singleton
+    @Provides
+    static MockWebServer mockWebServer() {
+        return new MockWebServer();
+    }
+
     @Named("http-cache")
     @Provides
-    static File cacheFile(DaggerApplication daggerApplication) {
-        return new File(daggerApplication.getCacheDir(), "http-cache");
+    static File cacheFile() {
+        return new File("build/http-cache");
     }
 }

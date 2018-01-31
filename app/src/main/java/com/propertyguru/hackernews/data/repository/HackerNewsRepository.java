@@ -7,7 +7,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 
-public interface Repository {
+public interface HackerNewsRepository {
     Flowable<List<Long>> getTopStories();
     Flowable<Story> getStory(long storyId);
     Flowable<Comment> getComments(long storyId);

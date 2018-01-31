@@ -1,4 +1,4 @@
-package com.propertyguru.hackernews.base;
+package com.propertyguru.hackernews.common;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.CallSuper;

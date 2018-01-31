@@ -9,5 +9,4 @@ import dagger.Module;
         BroadcastReceiverModule.class,
         ContentProviderModule.class
 })
-public abstract class AndroidComponentsModule {
-}
+public abstract class AndroidComponentsModule {}

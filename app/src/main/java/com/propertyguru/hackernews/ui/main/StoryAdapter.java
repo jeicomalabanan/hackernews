@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.propertyguru.hackernews.base.BaseRecyclerViewAdapter;
 import com.propertyguru.hackernews.R;
+import com.propertyguru.hackernews.common.BaseRecyclerViewAdapter;
 import com.propertyguru.hackernews.data.model.Story;
 import com.propertyguru.hackernews.databinding.HolderStoryBinding;
 

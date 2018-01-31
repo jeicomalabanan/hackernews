@@ -18,12 +18,10 @@ public class TextViewBindingAdapter {
     public static void setHtml(final TextView textView, String html) {
         Spanned val = null;
         if (html != null) {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
                 val = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT);
-            } else {
-                //noinspection deprecation
+            else
                 val = Html.fromHtml(html);
-            }
         }
 
         textView.setText(val);
