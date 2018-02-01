@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import timber.log.Timber;
 
 import static com.propertyguru.hackernews.common.Constant.VALID_COMMENT_ID_FIRST_LEVEL;
 import static com.propertyguru.hackernews.common.Constant.VALID_COMMENT_ID_SECOND_LEVEL;
@@ -146,7 +147,17 @@ public class HackNewsRepositoryTest extends BaseUnitTest {
         mockWebServer.enqueue(commentSecondLevelMockResponse);
 
         // make request
-        SUT.getComments(VALID_STORY_ID).blockingFirst();
+        Iterable<Comment> commentIterable = SUT.getComments(VALID_STORY_ID).blockingNext();
+
+        for (Comment comment : commentIterable) {
+            assertNotNull(comment);
+            assertEquals(VALID_COMMENT_ID_FIRST_LEVEL, comment.getId());
+
+            for (Comment childComment : comment.getChildList()) {
+                assertNotNull(childComment);
+                assertEquals(VALID_COMMENT_ID_SECOND_LEVEL, childComment.getId());
+            }
+        }
 
         // verify request
         RecordedRequest storyRecordedRequest = mockWebServer.takeRequest();
